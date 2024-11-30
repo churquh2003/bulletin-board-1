@@ -18,17 +18,21 @@ class PostsController < ApplicationController
   end
 
   def create
+    # Initialize a new Post object
     the_post = Post.new
-    the_post.title = params.fetch("title")
-    the_post.body = params.fetch("body")
-    the_post.expires_on = params.fetch("expires_on")
-    the_post.board_id = params.fetch("board_id")
-
+    the_post.title = params.fetch("title") # Title from form
+    the_post.body = params.fetch("body") # Body from form
+    the_post.expires_on = params.fetch("expires_on") # Expiration date
+    the_post.board_id = params.fetch("board_id") # Associated Board ID
+  
+    # Check if the post is valid
     if the_post.valid?
-      the_post.save
-      redirect_to("/boards/#{the_post.board_id}", { :notice => "Post created successfully." })
+      the_post.save # Save the post to the database
+      # Redirect to the board's show page with a success notice
+      redirect_to("/boards/#{the_post.board_id}", { notice: "Post created successfully." })
     else
-      redirect_to("/boards/#{the_post.board_id}", { :alert => the_post.errors.full_messages.to_sentence })
+      # Redirect back with an error alert
+      redirect_to("/boards/#{the_post.board_id}", { alert: the_post.errors.full_messages.to_sentence })
     end
   end
 

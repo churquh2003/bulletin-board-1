@@ -11,6 +11,7 @@
 #  board_id   :integer
 #
 class Post < ApplicationRecord
-  validates :title, :body, :expires_on, :board_id, presence: true
   belongs_to :board
+
+  validates :title, :body, :expires_on, :board_id, presence: true
 end
